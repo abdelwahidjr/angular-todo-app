@@ -1,0 +1,6 @@
+.linkable{
+    cursor: pointer;
+}
+.linkable:hover{
+    color: darkred !important;
+}

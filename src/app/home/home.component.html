@@ -1,0 +1,37 @@
+
+<button class="btn btn-outline-primary mb-1" routerLink= "add-task"> Add a new task</button>
+
+<div>
+    <ul *ngIf='_TasksService.tasks.length != 0 ; else notasks' class="list-group list-group-flush p-3" >
+        <h1 class="text-center">list of Tasks</h1>
+        <li *ngFor='let task of _TasksService.tasks ; index as i' [style.background]='task.priority > 3?"rgba(214, 48, 49 ,1)":"#26de81"'  class="list-group-item d-flex justify-content-between ">
+                <div [routerLink]="['/task' , i]">
+                    <a class="linkable text-dark">{{i+1}}. {{task.title}}</a>
+                </div>
+                <div>
+                    <button class="btn btn-warning me-2" (click)="archiveTask(i)">Archive</button>
+                    <button class="btn btn-danger" (click)="deleteTask(i)">Delete</button>
+                </div>
+        </li>
+    </ul>
+</div>
+
+<ng-template #notasks>
+    <p class="alert alert-danger"> NO Tasks!</p>
+</ng-template>
+
+
+
+
+    <ul *ngIf='_TasksService.archivedTasks.length > 0' class="list-group list-group-flush p-3" >
+        <h1 class="text-center">list of Archived Tasks</h1>
+        <li *ngFor='let arcTask of _TasksService.archivedTasks ; index as i' class="list-group-item d-flex justify-content-between ">
+                <div>{{i+1}}. {{arcTask.title}} </div>
+                <div>
+                    <button class="btn btn-danger"(click)="deleteArchivedTask(i)">Delete</button>
+                </div>
+        </li>
+    </ul>
+
+
+

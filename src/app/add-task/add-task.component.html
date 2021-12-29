@@ -1,0 +1,33 @@
+<div class="border p-3">
+    <h2 class="mb-2">Add a new task</h2>
+    <form [formGroup]="addTaskForm" (ngSubmit)='saveTask(title , priority , duration , description , addTaskForm)'>
+
+        <input #title formControlName='title' type="text" placeholder="Enter the task title" class="form-control mb-1">
+        <div *ngIf = "addTaskForm.get('title')?.errors != null && addTaskForm.get('title')?.touched"   class="alert alert-danger mt-1">
+            <p *ngIf = "addTaskForm.get('title')?.errors?.required" >task title is required!</p>
+            <p *ngIf = "addTaskForm.get('title')?.errors?.pattern" >task title should be charaters only</p>
+
+        </div>
+
+        <label for="priority" class="form-label me-2">priority of task (1 ~ 5) :</label>
+        <input #priority formControlName='priority' type="range"  min="0" max="5" class=" my-2" id="priority" >
+
+
+        <input #duration formControlName='duration' type="number" placeholder="enter task duration in hours" class="form-control mb-2">
+        <div *ngIf = "addTaskForm.get('duration')?.errors != null && addTaskForm.get('duration')?.touched" class="alert alert-danger mt-1">
+            <p *ngIf = "addTaskForm.get('duration')?.errors?.required" >the duration of task is required!</p>
+            <p *ngIf = "addTaskForm.get('duration')?.errors?.pattern">the duration of task must be number</p>
+        </div>
+
+        <textarea #description  formControlName='description' cols="30" rows="10" placeholder="write a description for task... " class="form-control mb-2"></textarea>
+        <div *ngIf = "addTaskForm.get('description')?.errors != null && addTaskForm.get('description')?.touched" class="alert alert-danger mt-1">
+            <p *ngIf = "addTaskForm.get('description')?.errors?.required" >the description is required!</p>
+            <p *ngIf = "addTaskForm.get('description')?.errors?.pattern">the duration of task must be charaters only</p>
+        </div>
+        <button  [disabled]='addTaskForm.invalid' type="submit" class="btn btn-outline-success me-2" (click)="saveTask(title , priority , duration , description , addTaskForm)">Save</button>
+        <button class="btn btn-outline-primary " routerLink="">Cancel</button>
+
+    </form>
+   
+
+</div>

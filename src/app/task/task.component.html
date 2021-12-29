@@ -1,0 +1,39 @@
+<form [formGroup]="taskForm" (ngSubmit)='updateTask(taskForm)'>
+    <div class="border p-3">
+
+        <h2>{{task.title}} task's details</h2>
+        <label class="h5">Task Title :</label>
+        <input formControlName='title' type="text" placeholder="Enter the task title" class="form-control mb-1"[(ngModel)]="task.title">
+        <div *ngIf = "taskForm.get('title')?.errors != null && taskForm.get('title')?.touched"   class="alert alert-danger mt-1">
+            <p *ngIf = "taskForm.get('title')?.errors?.required" >task title is required!</p>
+            <p *ngIf = "taskForm.get('title')?.errors?.pattern" >task title should be charaters only</p>
+        </div>     
+           
+        <label for="priority" class="form-label me-2">priority of task (1 ~ 5) :</label>
+        <input type="range"formControlName='priority' class=" mb-4 " min="0" max="5" [(ngModel)]="task.priority">
+        <br>
+        
+        <label class="h5">The duration in hours:</label>
+        <input  type="number" formControlName='duration' class="form-control mb-4" placeholder="write the duration in hours" [(ngModel)]= "task.duration" >
+        <div *ngIf = "taskForm.get('duration')?.errors != null && taskForm.get('duration')?.touched" class="alert alert-danger mt-1">
+            <p *ngIf = "taskForm.get('duration')?.errors?.required" >the duration of task is required!</p>
+            <p *ngIf = "taskForm.get('duration')?.errors?.pattern">the duration of task must be number</p>
+        </div>
+
+        <label class="h5">The description:</label>
+        <textarea formControlName='description' id="" cols="30" rows="10" placeholder="write a description"class="form-control mb-4" [(ngModel)]= "task.description"></textarea>
+        <div *ngIf = "taskForm.get('description')?.errors != null && taskForm.get('description')?.touched" class="alert alert-danger mt-1">
+            <p *ngIf = "taskForm.get('description')?.errors?.required" >the description is required!</p>
+            <p *ngIf = "taskForm.get('description')?.errors?.pattern">the duration of task must be charaters only</p>
+        </div>
+        
+        
+        
+        <button  [disabled]='taskForm.invalid' type="submit" class="btn btn-outline-success me-2" (click)="updateTask(taskForm)">Update</button>
+        <button class="btn btn-outline-danger me-2" (click)="deleteTask()">Delete</button>
+        <button class="btn btn-outline-primary " routerLink="">Cancel</button> 
+    
+    </div>
+
+
+</form>
